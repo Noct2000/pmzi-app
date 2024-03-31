@@ -12,9 +12,11 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import lombok.experimental.Accessors;
 import java.util.Set;
 
 @Data
+@Accessors(chain = true)
 @Entity
 @Table(name = "[user]")
 public class User {
