@@ -11,4 +11,8 @@ public interface UserService extends CrudService<User> {
             String username,
             ChangePasswordRequestDto changePasswordRequestDto
     );
+
+    User createNewUser(User user);
+
+    void changeBlockedStatus(Long userId, Boolean status);
 }

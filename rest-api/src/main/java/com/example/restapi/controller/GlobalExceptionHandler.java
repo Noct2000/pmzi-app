@@ -2,6 +2,7 @@ package com.example.restapi.controller;
 
 import com.example.restapi.dto.BaseResponseDto;
 import com.example.restapi.exception.AuthenticationException;
+import com.example.restapi.exception.UsernameDuplicationException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = EntityNotFoundException.class)
     public ResponseEntity<BaseResponseDto> handleEntityNotFoundException(EntityNotFoundException exception) {
         return getResponseForOneMessage(exception, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = UsernameDuplicationException.class)
+    public ResponseEntity<BaseResponseDto> handleUsernameDuplicationException(UsernameDuplicationException exception) {
+        return getResponseForOneMessage(exception, HttpStatus.BAD_REQUEST);
     }
 
     private ResponseEntity<BaseResponseDto> getResponseForOneMessage(Exception exception, HttpStatus status) {

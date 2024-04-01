@@ -20,6 +20,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         Optional<com.example.restapi.model.User> user = userService.findByUsername(username);
         if (user.isPresent()) {
+            if (user.get().getBlocked()) {
+                throw new AuthenticationException("User with username: " + username + " blocked");
+            }
             User.UserBuilder userBuilder = User.withUsername(username);
             userBuilder.password(user.get().getPassword());
             userBuilder.roles(user.get().getRoles().stream()

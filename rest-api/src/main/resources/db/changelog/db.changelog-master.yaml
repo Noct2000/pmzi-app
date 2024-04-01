@@ -13,3 +13,5 @@ databaseChangeLog:
       file: /db/changelog/changes/add-basic-roles.sql
   - include:
       file: /db/changelog/changes/add-first-user-admin-row-to-user-table.sql
+  - include:
+      file: /db/changelog/changes/add-blocked-column-to-user-table.sql

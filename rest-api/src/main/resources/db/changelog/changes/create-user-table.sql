@@ -3,7 +3,7 @@
 CREATE TABLE IF NOT EXISTS public.user
 (
     id bigint NOT NULL,
-    username character varying(256) NOT NULL,
+    username character varying(256) UNIQUE NOT NULL,
     password character varying(256) NOT NULL,
     CONSTRAINT user_pk PRIMARY KEY (id)
     );

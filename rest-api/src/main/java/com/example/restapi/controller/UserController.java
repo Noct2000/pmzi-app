@@ -1,5 +1,6 @@
 package com.example.restapi.controller;
 
+import com.example.restapi.dto.BlockUserRequestDto;
 import com.example.restapi.dto.ChangePasswordRequestDto;
 import com.example.restapi.dto.CreateUserRequestDto;
 import com.example.restapi.dto.UserResponseDto;
@@ -33,7 +34,7 @@ public class UserController {
             CreateUserRequestDto createUserRequestDto
     ) {
         User user = userMapper.toModel(createUserRequestDto);
-        userService.save(user);
+        userService.createNewUser(user);
         return userMapper.toResponseDto(user);
     }
 
@@ -53,5 +54,15 @@ public class UserController {
         return userService.findAll().stream()
                 .map(userMapper::toResponseDto)
                 .toList();
+    }
+
+    @PatchMapping("/block")
+    public ResponseEntity<Void> changeUserStatus(
+            @RequestBody
+            @Valid
+            BlockUserRequestDto blockUserRequestDto
+    ) {
+        userService.changeBlockedStatus(blockUserRequestDto.userId(), blockUserRequestDto.status());
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

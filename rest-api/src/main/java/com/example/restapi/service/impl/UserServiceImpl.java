@@ -2,6 +2,7 @@ package com.example.restapi.service.impl;
 
 import com.example.restapi.dto.ChangePasswordRequestDto;
 import com.example.restapi.exception.AuthenticationException;
+import com.example.restapi.exception.UsernameDuplicationException;
 import com.example.restapi.model.User;
 import com.example.restapi.repository.UserRepository;
 import com.example.restapi.service.UserService;
@@ -43,6 +44,27 @@ public class UserServiceImpl extends CrudServiceImpl<User> implements UserServic
            throw new AuthenticationException("Incorrect password for user: " + username);
         }
         user.setPassword(passwordEncoder.encode(changePasswordRequestDto.newPassword()));
+        userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
+    public User createNewUser(User user) {
+        Optional<User> optionalUser = findByUsername(user.getUsername());
+        if (optionalUser.isPresent()) {
+            throw new UsernameDuplicationException("User with username: "
+                    + user.getUsername()
+                    + " already exists"
+            );
+        }
+        return save(user);
+    }
+
+    @Override
+    @Transactional
+    public void changeBlockedStatus(Long userId, Boolean status) {
+        User user = findById(userId);
+        user.setBlocked(status);
         userRepository.save(user);
     }
 }

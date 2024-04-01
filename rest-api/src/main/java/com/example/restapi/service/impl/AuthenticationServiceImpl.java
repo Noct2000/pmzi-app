@@ -1,6 +1,7 @@
 package com.example.restapi.service.impl;
 
 import com.example.restapi.dto.LoginResponseDto;
+import com.example.restapi.exception.AuthenticationException;
 import com.example.restapi.jwt.JwtTokenProvider;
 import com.example.restapi.model.User;
 import com.example.restapi.service.AuthenticationService;
@@ -22,6 +23,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Optional<User> user = userService.findByUsername(username);
         if (user.isEmpty() || !passwordEncoder.matches(password, user.get().getPassword())) {
             return Optional.empty();
+        }
+        if (user.get().getBlocked()) {
+            throw new AuthenticationException("User with username: " + username + " blocked");
         }
         return Optional.of(getLoginResponse(user.get()));
     }
