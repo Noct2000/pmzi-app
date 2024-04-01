@@ -2,6 +2,7 @@ package com.example.restapi.controller;
 
 import com.example.restapi.dto.BlockUserRequestDto;
 import com.example.restapi.dto.ChangePasswordRequestDto;
+import com.example.restapi.dto.ChangeUserRolesDto;
 import com.example.restapi.dto.CreateUserRequestDto;
 import com.example.restapi.dto.UserResponseDto;
 import com.example.restapi.mapper.UserMapper;
@@ -64,5 +65,15 @@ public class UserController {
     ) {
         userService.changeBlockedStatus(blockUserRequestDto.userId(), blockUserRequestDto.status());
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PatchMapping("/roles")
+    public UserResponseDto changeUserRoles(
+            @RequestBody
+            @Valid
+            ChangeUserRolesDto changeUserRolesDto
+    ) {
+        User user = userService.changeRoles(changeUserRolesDto.userId(), changeUserRolesDto.roles());
+        return userMapper.toResponseDto(user);
     }
 }

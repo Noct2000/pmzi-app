@@ -31,6 +31,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/login", "/refresh", "/users").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users").hasRole(Role.RoleName.ADMIN.name())
                         .requestMatchers(HttpMethod.PATCH, "/users/block").hasRole(Role.RoleName.ADMIN.name())
+                        .requestMatchers(HttpMethod.PATCH, "/users/roles").hasRole(Role.RoleName.ADMIN.name())
                         .requestMatchers(HttpMethod.PATCH, "/users/change-password").authenticated()
                         .anyRequest()
                         .authenticated()
