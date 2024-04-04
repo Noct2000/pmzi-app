@@ -1,0 +1,11 @@
+.register-button {
+  width: 100%;
+}
+
+.layout {
+  height: 100vh;
+}
+
+.register-form {
+  min-width: 30vh;
+}

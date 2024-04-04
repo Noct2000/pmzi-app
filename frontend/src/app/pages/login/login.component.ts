@@ -3,7 +3,6 @@ import {FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Val
 import {NzFormControlComponent, NzFormDirective, NzFormItemComponent} from "ng-zorro-antd/form";
 import {NzInputDirective, NzInputGroupComponent} from "ng-zorro-antd/input";
 import {NzColDirective, NzRowDirective} from "ng-zorro-antd/grid";
-import {NzCheckboxComponent} from "ng-zorro-antd/checkbox";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 
 @Component({
@@ -16,7 +15,6 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
     NzColDirective,
     NzInputDirective,
     ReactiveFormsModule,
-    NzCheckboxComponent,
     NzRowDirective,
     NzButtonComponent,
     NzFormDirective
