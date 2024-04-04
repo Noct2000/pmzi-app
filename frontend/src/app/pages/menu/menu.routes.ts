@@ -10,6 +10,10 @@ export const MENU_ROUTES: Routes = [
       {
         path: 'welcome',
         loadChildren: () => import('../welcome/welcome.routes').then(m => m.WELCOME_ROUTES)
+      },
+      {
+        path: 'about',
+        loadChildren: () => import('../about/about.routes').then(m => m.ABOUT_ROUTES)
       }
     ],
   }

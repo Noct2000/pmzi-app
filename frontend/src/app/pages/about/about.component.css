@@ -1,0 +1,10 @@
+.about-message {
+  font-size: large;
+  text-align: center;
+  font-style: italic;
+}
+
+.author-name {
+  font-weight: bold;
+  text-decoration: underline;
+}
