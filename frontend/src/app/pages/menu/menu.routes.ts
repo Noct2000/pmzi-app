@@ -14,6 +14,10 @@ export const MENU_ROUTES: Routes = [
       {
         path: 'about',
         loadChildren: () => import('../about/about.routes').then(m => m.ABOUT_ROUTES)
+      },
+      {
+        path: 'users',
+        loadChildren: () => import('../users/users.routes').then(m => m.USERS_ROUTES)
       }
     ],
   }
