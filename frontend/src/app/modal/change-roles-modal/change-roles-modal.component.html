@@ -1,0 +1,30 @@
+<form nz-form [formGroup]="changeRolesForm">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="roleNames">Roles</nz-form-label>
+    <nz-form-control [nzSpan]="8" nzErrorTip="Select at east one role!">
+      <nz-select
+        [nzMaxTagCount]="3"
+        [nzMaxTagPlaceholder]="tagPlaceHolder"
+        nzMode="multiple"
+        nzPlaceHolder="Please select roles"
+        formControlName="roleNames"
+      >
+        <nz-option *ngFor="let item of listOfOption" [nzLabel]="item" [nzValue]="item"></nz-option>
+      </nz-select>
+      <ng-template #tagPlaceHolder let-selectedList>and {{ selectedList.length }} more selected</ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <div *nzModalFooter>
+    <button
+      nz-button
+      nzType="primary"
+      (click)="handleCancel()"
+    >Exit</button>
+    <button
+      nz-button
+      nzType="primary"
+      [disabled]="changeRolesForm.invalid"
+      (click)="handleOk()"
+    >Change</button>
+  </div>
+</form>
