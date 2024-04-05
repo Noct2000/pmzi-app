@@ -18,6 +18,10 @@ export const MENU_ROUTES: Routes = [
       {
         path: 'users',
         loadChildren: () => import('../users/users.routes').then(m => m.USERS_ROUTES)
+      },
+      {
+        path: 'change-password',
+        loadChildren: () => import('../change-password/change-password.routes').then(m => m.CHANGE_PASSWORD_ROUTES)
       }
     ],
   }
