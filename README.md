@@ -18,7 +18,7 @@ docker compose up --build
 ## How to shut down project
 Use follow command in another console:
 ```shell
-docker compose down
+docker-compose down
 ```
 
 ## How to test it 
