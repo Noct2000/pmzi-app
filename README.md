@@ -11,7 +11,7 @@ This is web app that provides basic operations with users:
 2) go to the project root dir
 3) run follow command:
 ```shell
-docker compose up --build
+docker-compose up --build
 ```
 4) use health check endpoint to check that project is started
 
