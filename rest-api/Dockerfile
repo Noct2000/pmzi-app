@@ -8,4 +8,5 @@ RUN gradle build
 # Run application
 FROM openjdk:17-oracle
 COPY --from=builder /home/gradle/src/build/libs/*.jar app.jar
+EXPOSE 5005
 ENTRYPOINT ["java", "-jar", "/app.jar"]
