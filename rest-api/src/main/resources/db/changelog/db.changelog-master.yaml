@@ -15,3 +15,11 @@ databaseChangeLog:
       file: /db/changelog/changes/add-first-user-admin-row-to-user-table.sql
   - include:
       file: /db/changelog/changes/add-blocked-column-to-user-table.sql
+  - include:
+      file: /db/changelog/changes/create-question-table.sql
+  - include:
+      file: /db/changelog/changes/add-question-sequence.sql
+  - include:
+      file: /db/changelog/changes/add-two-questions-for-first-admin.sql
+  - include:
+      file: /db/changelog/changes/add-six-users-to-user-table.sql

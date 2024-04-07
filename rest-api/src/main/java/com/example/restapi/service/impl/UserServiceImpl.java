@@ -3,15 +3,18 @@ package com.example.restapi.service.impl;
 import com.example.restapi.dto.ChangePasswordRequestDto;
 import com.example.restapi.exception.AuthenticationException;
 import com.example.restapi.exception.UsernameDuplicationException;
+import com.example.restapi.model.Question;
 import com.example.restapi.model.Role;
 import com.example.restapi.model.User;
 import com.example.restapi.repository.UserRepository;
+import com.example.restapi.service.QuestionService;
 import com.example.restapi.service.RoleService;
 import com.example.restapi.service.UserService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -21,16 +24,19 @@ public class UserServiceImpl extends CrudServiceImpl<User> implements UserServic
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleService roleService;
+    private final QuestionService questionService;
 
     public UserServiceImpl(
             UserRepository userRepository,
             PasswordEncoder passwordEncoder,
-            RoleService roleService
+            RoleService roleService,
+            QuestionService questionService
     ) {
         super(userRepository, User.class.getSimpleName());
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleService = roleService;
+        this.questionService = questionService;
     }
 
     @Override
@@ -56,7 +62,7 @@ public class UserServiceImpl extends CrudServiceImpl<User> implements UserServic
 
     @Override
     @Transactional
-    public User createNewUser(User user) {
+    public User createNewUser(User user, Map<String, String> questionAnswerMap) {
         Optional<User> optionalUser = findByUsername(user.getUsername());
         if (optionalUser.isPresent()) {
             throw new UsernameDuplicationException("User with username: "
@@ -64,7 +70,18 @@ public class UserServiceImpl extends CrudServiceImpl<User> implements UserServic
                     + " already exists"
             );
         }
-        return save(user);
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        save(user);
+
+        questionAnswerMap.forEach((key, value) -> questionService.save(
+                new Question()
+                        .setUser(user)
+                        .setQuestion(key)
+                        .setAnswer(value)
+        ));
+
+        return user;
     }
 
     @Override

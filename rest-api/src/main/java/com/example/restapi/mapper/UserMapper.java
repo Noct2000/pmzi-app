@@ -20,7 +20,6 @@ public class UserMapper {
 
         return new User()
                 .setUsername(createUserRequestDto.username())
-                // must be encoded
                 .setPassword(createUserRequestDto.password())
                 .setRoles(Set.of(userRole));
     }

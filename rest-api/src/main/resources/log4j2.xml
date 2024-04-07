@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" packages="com.example.securityapp">
+    <Appenders>
+        <Console name="SYSTEM_OUT">
+            <PatternLayout pattern="%d: %m%n" />
+        </Console>
+        <File name="LOGIN" fileName="login.log" append="true">
+            <PatternLayout><Pattern>%d: %m%n</Pattern></PatternLayout>
+        </File>
+        <File name="EVENT" fileName="events.log" append="true">
+            <PatternLayout><Pattern>%d: %m%n</Pattern></PatternLayout>
+        </File>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="com.example.restapi.controller.AuthenticationController" level="info" additivity="false">
+            <AppenderRef ref="LOGIN"/>
+            <AppenderRef ref="SYSTEM_OUT"/>
+        </Logger>
+        <Logger name="com.example.restapi.controller.UserController" level="info" additivity="false">
+            <AppenderRef ref="EVENT"/>
+            <AppenderRef ref="SYSTEM_OUT"/>
+        </Logger>
+        <Logger name="com.example.restapi.controller.HealthController" level="info" additivity="false">
+            <AppenderRef ref="EVENT"/>
+            <AppenderRef ref="SYSTEM_OUT"/>
+        </Logger>
+        <Logger name="com.example.restapi.controller.RoleController" level="info" additivity="false">
+            <AppenderRef ref="EVENT"/>
+            <AppenderRef ref="SYSTEM_OUT"/>
+        </Logger>
+        <Root level="INFO">
+            <AppenderRef ref="SYSTEM_OUT"/>
+        </Root>
+    </Loggers>
+</Configuration>
