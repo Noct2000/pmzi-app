@@ -64,6 +64,8 @@ public class UserServiceImpl extends CrudServiceImpl<User> implements UserServic
                     + " already exists"
             );
         }
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         return save(user);
     }
 
