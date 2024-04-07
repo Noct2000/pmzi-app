@@ -2,11 +2,13 @@ package com.example.restapi.controller;
 
 import com.example.restapi.dto.LoginRequestDto;
 import com.example.restapi.dto.LoginResponseDto;
+import com.example.restapi.dto.QuestionSessionCheckRequestDto;
 import com.example.restapi.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,9 +28,17 @@ public class AuthenticationController {
         return getLoginResponseDto(loginResponseDto);
     }
 
-    @PostMapping("/refresh")
-    public ResponseEntity<LoginResponseDto> refresh(@RequestBody String refreshToken) {
-        Optional<LoginResponseDto> loginResponseDto = authenticationService.login(refreshToken);
+    @PostMapping("/session-check")
+    public ResponseEntity<LoginResponseDto> checkSession(
+            Authentication authentication,
+            @RequestBody
+            @Valid
+            QuestionSessionCheckRequestDto questionSessionCheckRequestDto
+            ) {
+        Optional<LoginResponseDto> loginResponseDto = authenticationService.checkSession(
+                questionSessionCheckRequestDto,
+                authentication.getName()
+        );
         return getLoginResponseDto(loginResponseDto);
     }
 
