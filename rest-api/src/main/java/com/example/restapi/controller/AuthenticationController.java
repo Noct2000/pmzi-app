@@ -6,6 +6,7 @@ import com.example.restapi.dto.QuestionSessionCheckRequestDto;
 import com.example.restapi.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
+@Log4j2
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
@@ -25,7 +27,7 @@ public class AuthenticationController {
     ) {
         Optional<LoginResponseDto> loginResponseDto = authenticationService
                 .login(loginRequestDto.username(), loginRequestDto.password());
-        return getLoginResponseDto(loginResponseDto);
+        return getLoginResponseDto(loginResponseDto, loginRequestDto.username());
     }
 
     @PostMapping("/session-check")
@@ -39,13 +41,20 @@ public class AuthenticationController {
                 questionSessionCheckRequestDto,
                 authentication.getName()
         );
-        return getLoginResponseDto(loginResponseDto);
+        return getLoginResponseDto(loginResponseDto, authentication.getName());
     }
 
     private ResponseEntity<LoginResponseDto> getLoginResponseDto(
-            Optional<LoginResponseDto> loginResponseDto
+            Optional<LoginResponseDto> loginResponseDto,
+            String username
     ) {
-        return loginResponseDto.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.FORBIDDEN).build());
+        return loginResponseDto.map(loginResponse -> {
+            log.info("User with username: {} was successful authenticated", username);
+            return ResponseEntity.ok(loginResponse);
+                })
+                .orElseGet(() -> {
+                    log.info("Failed authentication with username: {}", username);
+                    return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+                });
     }
 }

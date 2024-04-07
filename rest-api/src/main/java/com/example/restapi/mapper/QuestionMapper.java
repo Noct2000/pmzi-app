@@ -9,8 +9,7 @@ public class QuestionMapper {
     public QuestionResponseDto toResponseDto(Question question) {
         return new QuestionResponseDto(
                 question.getId(),
-                question.getQuestion(),
-                question.getAnswer()
+                question.getQuestion()
         );
     }
 }
