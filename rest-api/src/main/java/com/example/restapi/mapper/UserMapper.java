@@ -16,12 +16,12 @@ public class UserMapper {
     private final RoleService roleService;
 
     public User toModel(CreateUserRequestDto createUserRequestDto) {
-        Role userRole = roleService.findByName(Role.RoleName.USER);
+        Role demoRole = roleService.findByName(Role.RoleName.DEMO);
 
         return new User()
                 .setUsername(createUserRequestDto.username())
                 .setPassword(createUserRequestDto.password())
-                .setRoles(Set.of(userRole));
+                .setRoles(Set.of(demoRole));
     }
 
     public UserResponseDto toResponseDto(User user) {

@@ -23,3 +23,5 @@ databaseChangeLog:
       file: /db/changelog/changes/add-two-questions-for-first-admin.sql
   - include:
       file: /db/changelog/changes/add-six-users-to-user-table.sql
+  - include:
+      file: /db/changelog/changes/add-demo-role.sql
