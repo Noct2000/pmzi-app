@@ -36,6 +36,11 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/session-check").authenticated()
                         .requestMatchers(HttpMethod.GET, "/roles").hasRole(Role.RoleName.ADMIN.name())
                         .requestMatchers(HttpMethod.GET, "/logs/**").hasRole(Role.RoleName.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/files").hasAnyRole(
+                                Role.RoleName.ADMIN.name(),
+                                Role.RoleName.USER.name(),
+                                Role.RoleName.DEMO.name()
+                        )
                         .requestMatchers(HttpMethod.PATCH, "/users/change-password").authenticated()
                         .anyRequest()
                         .authenticated()

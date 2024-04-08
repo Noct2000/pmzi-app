@@ -29,6 +29,10 @@
             <AppenderRef ref="EVENT"/>
             <AppenderRef ref="SYSTEM_OUT"/>
         </Logger>
+        <Logger name="com.example.restapi.controller.LogsController" level="info" additivity="false">
+            <AppenderRef ref="EVENT"/>
+            <AppenderRef ref="SYSTEM_OUT"/>
+        </Logger>
         <Root level="INFO">
             <AppenderRef ref="SYSTEM_OUT"/>
         </Root>
