@@ -3,12 +3,12 @@
 WITH inserted_users AS (
     INSERT INTO public."user" (id, username, password)
         VALUES
-            (nextval('user_id_seq'), 'user1', '0.0-0.89792768068929131.9990403171614626-2.0303158706619232.055913823950141'),
-            (nextval('user_id_seq'), 'user2', '0.0-0.89792768068929131.9990403171614626-2.0303158706619232.055913823950141'),
-            (nextval('user_id_seq'), 'user3', '0.0-0.89792768068929131.9990403171614626-2.0303158706619232.055913823950141'),
-            (nextval('user_id_seq'), 'user4', '0.0-0.89792768068929131.9990403171614626-2.0303158706619232.055913823950141'),
-            (nextval('user_id_seq'), 'user5', '0.0-0.89792768068929131.9990403171614626-2.0303158706619232.055913823950141'),
-            (nextval('user_id_seq'), 'user6', '0.0-0.89792768068929131.9990403171614626-2.0303158706619232.055913823950141')
+            (nextval('user_id_seq'), 'user1', 'DGPLQ'),
+            (nextval('user_id_seq'), 'user2', 'DGPLQ'),
+            (nextval('user_id_seq'), 'user3', 'DGPLQ'),
+            (nextval('user_id_seq'), 'user4', 'DGPLQ'),
+            (nextval('user_id_seq'), 'user5', 'DGPLQ'),
+            (nextval('user_id_seq'), 'user6', 'DGPLQ')
         RETURNING id
 )
 INSERT INTO user_role (user_id, role_id)
